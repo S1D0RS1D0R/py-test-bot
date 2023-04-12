@@ -26,7 +26,7 @@ async def bot_message(message: types.Message):
         if message.text == 'Профиль':
             pass
         else :
-            if db.get_sign_up(message.from_user.id) == "setnickname":
+            if db.get_signup(message.from_user.id) == "setnickname":
                 if(len(message.text) > 15):
                     await bot.send_message(message.from_user.id, "Никнейм не должен превышать 15 символов")
                 elif '@' in message.text or '/' in message.text:
@@ -35,6 +35,8 @@ async def bot_message(message: types.Message):
                     db.set_nickname(message.from_user.id, message.text)
                     db.set_signup(message.from_user.id, "Done")
                     await bot.send_message(message.from_user.id, "Вы успешно зарегестрировались", reply_markup=nav.mainMenu)
+            #else:
+               # await bot.send_message(message.from_user.id, "Что?")
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
